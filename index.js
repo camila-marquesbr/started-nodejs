@@ -53,20 +53,47 @@ const createBook = (request, response) =>{
     console.log('BOOK', book)
 
     //validação nome do livro (Sempre mandar o nome do livro)
-
     if(book.name && book.autor && book.id){
         return response.status(201).send({message: 'Livro Cadastrado com Sucesso!'})
     }else{
-        return response.satus(400).send({message: "Falta criar o body corretamente"})
-    }
+        return response.status(400).send({message: 'Falta enviar o body corretamente'})
+    } 
+}
 
-   
+
+const deleteBook = (request, response) =>{
+    const id = request.params.id
+    console.log('id', id)
+
+    if (id) {
+        return response.status(201).send({message: 'livro Excluído com sucesso'})
+    }else{
+        return response.status(400).send({message: 'Falta enviar o id na url'})
+    }
+     
+}    
+
+const updatebook = () =>{
+    const id = request.params.id
+    if(id){
+        return response.status(201).send({message: 'Livro excluido com sucesso'})
+    }else{
+        return response.status(400).send({message: 'Falta enviar o id na url'})
+    }
 }
 
 app.get("/book", listBooks)
 
 //API para cadastro de um livro POST para mandar dados para o servidor
 app.post('/book', createBook)
+
+//API de deletar (caso precisa deletar um livro)
+app.delete('/book/:id', deleteBook)
+//localhost:8080/book/1
+
+//atualizar um dado
+app.update('/book/:id', updatebook)
+
 
 /*method= são verbos que enviamos no nosso request que indicam qual ação vai ser executada.
 
