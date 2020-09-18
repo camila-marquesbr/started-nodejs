@@ -73,7 +73,7 @@ const deleteBook = (request, response) =>{
      
 }    
 
-const updatebook = () =>{
+const updatebook = (request, response) =>{
     const id = request.params.id
     if(id){
         return response.status(201).send({message: 'Livro excluido com sucesso'})
