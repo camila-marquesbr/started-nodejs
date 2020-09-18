@@ -6,8 +6,13 @@ npm install express*/
 //importar o express
 const express = require('express')
 
+//"pegar o body e dar um PArse para JSON"
+const bodyParser = require('body-parser')
+
 //criar a variável APP que usa Express para iniciar nosso servidor
 const app = express();
+
+app.use(bodyParser.json())
 
 //subindo nosso servidor
 //definindo uma porta
@@ -43,14 +48,25 @@ const listBooks = (request, response)=>{
 }
 
 //quando a gente manda um POST, a gente manda o que a gente quer salvar
-const createBook =  (request, response) =>{
-    
+const createBook = (request, response) =>{
+    const book = request.body
+    console.log('BOOK', book)
+
+    //validação nome do livro (Sempre mandar o nome do livro)
+
+    if(book.name && book.autor && book.id){
+        return response.status(201).send({message: 'Livro Cadastrado com Sucesso!'})
+    }else{
+        return response.satus(400).send({message: "Falta criar o body corretamente"})
+    }
+
+   
 }
 
 app.get("/book", listBooks)
 
 //API para cadastro de um livro POST para mandar dados para o servidor
-app.post('/book, createBook')
+app.post('/book', createBook)
 
 /*method= são verbos que enviamos no nosso request que indicam qual ação vai ser executada.
 
