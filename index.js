@@ -92,7 +92,7 @@ app.delete('/book/:id', deleteBook)
 //localhost:8080/book/1
 
 //atualizar um dado
-app.update('/book/:id', updatebook)
+app.put('/book/:id', updatebook)
 
 
 /*method= são verbos que enviamos no nosso request que indicam qual ação vai ser executada.
