@@ -36,21 +36,22 @@ app.listen(PORT,listenFunction)
 
 //criando a primeira API que vai retornar dados = GET
 //URL com cadastro de livreos
-const listBooks = (request, response)=>{
-    const books = [
+ const books = [
         {
             name:"Harry Poter",
             autor: "JK",
             id:"1"
         }
     ]
-    return response.status(200).send(books)
-}
 
+        const listBooks = (request, response)=>{
+        return response.status(200).send(books)
+    }
 //quando a gente manda um POST, a gente manda o que a gente quer salvar
 const createBook = (request, response) =>{
     const book = request.body
     console.log('BOOK', book)
+    books.push(book)
 
     //validação nome do livro (Sempre mandar o nome do livro)
     if(book.name && book.autor && book.id){
@@ -64,11 +65,19 @@ const createBook = (request, response) =>{
 const deleteBook = (request, response) =>{
     const id = request.params.id
     console.log('id', id)
+    const isFoundBook = false
+    books.find((element, index)=>{
+          if(element.id == id){
+            isFoundBook = true
+            books.splice(index, 1)
+        }
+    })
+}
 
     if (id) {
         return response.status(201).send({message: 'livro Excluído com sucesso'})
     }else{
-        return response.status(400).send({message: 'Falta enviar o id na url'})
+        return response.status(400).send({message: 'Livro não encontrado'})
     }
      
 }    
